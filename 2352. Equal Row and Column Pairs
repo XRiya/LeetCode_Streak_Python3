@@ -1,0 +1,15 @@
+class Solution:
+    def equalPairs(self, grid: List[List[int]]) -> int:
+        n = len(grid)
+        count = 0
+
+        for i in range(n):
+            for j in range(n):
+            # Check if the elements in the current row and column are equal
+                if grid[i] == [row[j] for row in grid]:
+                    count += 1
+
+        return count
+
+
+        
