@@ -1,0 +1,15 @@
+class Solution:
+    def reverseList(self, head):
+        if not head:
+            return None
+            
+        temp = head
+        after = temp.next
+        before = None
+        while temp:
+            after = temp.next
+            temp.next = before
+            before = temp
+            temp = after
+        return before
+        
