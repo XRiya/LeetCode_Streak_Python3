@@ -1,0 +1,28 @@
+from typing import Optional
+
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+class Solution:
+    def pairSum(self, head: Optional[ListNode]) -> int:
+        values = []
+        current = head
+
+        # Precompute the values and store them in a list
+        while current:
+            values.append(current.val)
+            current = current.next
+
+        n = len(values)
+        max_pair_sum = 0
+
+        # Iterate through the linked list to find the maximum pair sum
+        for i in range(n // 2):
+            twin_index = n - 1 - i
+            pair_sum = values[i] + values[twin_index]
+            max_pair_sum = max(max_pair_sum, pair_sum)
+
+        return max_pair_sum
+
