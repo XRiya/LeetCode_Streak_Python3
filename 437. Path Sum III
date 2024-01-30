@@ -1,0 +1,31 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+class Solution:
+    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> int:
+        def dfs(node, current_sum, cumulative_sums):
+            if not node:
+                return 0
+
+            current_sum += node.val
+            # Check how many paths have a sum equal to targetSum
+            count = cumulative_sums.get(current_sum - targetSum, 0)
+
+            # Update the cumulative_sums dictionary
+            cumulative_sums[current_sum] = cumulative_sums.get(current_sum, 0) + 1
+
+            # Recursive DFS for left and right subtrees
+            count += dfs(node.left, current_sum, cumulative_sums)
+            count += dfs(node.right, current_sum, cumulative_sums)
+
+            # Backtrack - remove the current_sum from the dictionary
+            cumulative_sums[current_sum] -= 1
+
+            return count
+
+        cumulative_sums = {0: 1}  # Initialize with 0 to account for paths starting from the root
+        return dfs(root, 0, cumulative_sums)
