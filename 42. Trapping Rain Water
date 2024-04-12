@@ -1,0 +1,17 @@
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        max_height, total_water = 0, 0  # Max height so far, total trapped water
+        
+        # Calculate potential water trap, assuming infinite right boundary
+        for h in height:
+            max_height = max(max_height,h)
+            total_water += max_height - h
+        
+        # Adjust for the actual right boundary
+        right_max = 0  # Max height from the right
+        for h in reversed(height):
+            if h == max_height: break  # Stop after reaching the peak
+            right_max = max(right_max, h)
+            total_water -= max_height - right_max  # Adjust trapped water with actual right boundary
+        
+        return total_water
